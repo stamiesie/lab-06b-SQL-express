@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 require('dotenv').config();
 
 const { execSync } = require('child_process');
@@ -42,7 +44,7 @@ describe('app routes', () => {
           price: 20,
           hardcover: true,
           shipping: 'yes',
-          owner_id: 1213
+          owner_id: 1
         },
         {
           id: 2,
@@ -52,7 +54,7 @@ describe('app routes', () => {
           price: 30,
           hardcover: true,
           shipping: 'no',
-          owner_id: 1213
+          owner_id: 1
         },
         {
           id: 3,
@@ -62,7 +64,7 @@ describe('app routes', () => {
           price: 15,
           hardcover: true,
           shipping: 'no',
-          owner_id: 1213
+          owner_id: 1
         },
         {
           id: 4,
@@ -72,7 +74,7 @@ describe('app routes', () => {
           price: 15,
           hardcover: false,
           shipping: 'yes',
-          owner_id: 1213
+          owner_id: 1
         },
         {
           id: 5,
@@ -82,7 +84,7 @@ describe('app routes', () => {
           price: 20,
           hardcover: false,
           shipping: 'yes',
-          owner_id: 1213
+          owner_id: 1
         },
       ];
 
@@ -106,7 +108,7 @@ describe('app routes', () => {
         price: 20,
         hardcover: true,
         shipping: 'yes',
-        owner_id: 1213
+        owner_id: 1
       };
 
       const data = await fakeRequest(app)

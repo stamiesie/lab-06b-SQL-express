@@ -7,7 +7,7 @@ module.exports = [
     price: 20,
     hardcover: true,
     shipping: 'yes',
-    owner_id: 1213
+    owner_id: 1
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ module.exports = [
     price: 30,
     hardcover: true,
     shipping: 'no',
-    owner_id: 1213
+    owner_id: 1
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ module.exports = [
     price: 15,
     hardcover: true,
     shipping: 'no',
-    owner_id: 1213
+    owner_id: 1
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ module.exports = [
     price: 15,
     hardcover: false,
     shipping: 'yes',
-    owner_id: 1213
+    owner_id: 1
   },
   {
     id: 5,
@@ -47,6 +47,6 @@ module.exports = [
     price: 20,
     hardcover: false,
     shipping: 'yes',
-    owner_id: 1213
+    owner_id: 1
   },
 ];

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const client = require('../lib/client');
 // import our seed data:
 const books = require('./books.js');
@@ -27,8 +29,8 @@ async function run() {
     await Promise.all(
       books.map(book => {
         return client.query(`
-                    INSERT INTO books (id, title, author, category, price, hardcover, owner_id)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7);
+                    INSERT INTO books (id, title, author, category, price, hardcover, shipping, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                 `,
           [
             book.id,
@@ -37,6 +39,7 @@ async function run() {
             book.category,
             book.price,
             book.hardcover,
+            book.shipping,
             user.id
           ]);
       })

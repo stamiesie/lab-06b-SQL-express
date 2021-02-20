@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const client = require('../lib/client');
 const { getEmoji } = require('../lib/emoji.js');
 
