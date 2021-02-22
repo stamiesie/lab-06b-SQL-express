@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 require('dotenv').config();
 
 const { execSync } = require('child_process');
