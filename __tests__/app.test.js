@@ -38,56 +38,61 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          id: 1,
-          title: 'We Begin At The End',
-          author: 'Chris Whitaker',
-          category: 'Fiction',
-          price: 20,
-          hardcover: true,
-          shipping: 'yes',
-          owner_id: 1
+          "id": 4,
+          "title": "The Signal",
+          "category": "Fiction",
+          "author": "Ron Carlson",
+          "category_id": 1,
+          "price": 15,
+          "hardcover": false,
+          "shipping": "yes",
+          "owner_id": 1
         },
         {
-          id: 2,
-          title: 'Building for Better Living',
-          author: 'A. Quincy Jones',
-          category: 'Non-Fiction',
-          price: 30,
-          hardcover: true,
-          shipping: 'no',
-          owner_id: 1
+          "id": 3,
+          "title": "Fire On The Mountain",
+          "category": "Fiction",
+          "author": "Edward Abbey",
+          "category_id": 1,
+          "price": 15,
+          "hardcover": true,
+          "shipping": "no",
+          "owner_id": 1
         },
         {
-          id: 3,
-          title: 'Fire On The Mountain',
-          author: 'Edward Abbey',
-          category: 'Fiction',
-          price: 15,
-          hardcover: true,
-          shipping: 'no',
-          owner_id: 1
+          "id": 1,
+          "title": "We Begin At The End",
+          "category": "Fiction",
+          "author": "Chris Whitaker",
+          "category_id": 1,
+          "price": 20,
+          "hardcover": true,
+          "shipping": "yes",
+          "owner_id": 1
         },
         {
-          id: 4,
-          title: 'The Signal',
-          author: 'Ron Carlson',
-          category: 'Fiction',
-          price: 15,
-          hardcover: false,
-          shipping: 'yes',
-          owner_id: 1
+          "id": 5,
+          "title": "Neutra",
+          "category": "Non-Fiction",
+          "author": "Barbara Lamprecht",
+          "category_id": 2,
+          "price": 20,
+          "hardcover": false,
+          "shipping": "yes",
+          "owner_id": 1
         },
         {
-          id: 5,
-          title: 'Neutra',
-          author: 'Barbara Lamprecht',
-          category: 'Non-Fiction',
-          price: 20,
-          hardcover: false,
-          shipping: 'yes',
-          owner_id: 1
-        },
-      ];
+          "id": 2,
+          "title": "Building for Better Living",
+          "category": "Non-Fiction",
+          "author": "A. Quincy Jones",
+          "category_id": 2,
+          "price": 30,
+          "hardcover": true,
+          "shipping": "no",
+          "owner_id": 1
+        }
+      ]
 
       const data = await fakeRequest(app)
         .get('/books')
@@ -102,12 +107,13 @@ describe('app routes', () => {
 
       const expectation = {
         id: 1,
-        title: 'We Begin At The End',
-        author: 'Chris Whitaker',
-        category: 'Fiction',
+        title: "We Begin At The End",
+        category: "Fiction",
+        author: "Chris Whitaker",
+        category_id: 1,
         price: 20,
         hardcover: true,
-        shipping: 'yes',
+        shipping: "yes",
         owner_id: 1
       };
 
@@ -125,10 +131,11 @@ describe('app routes', () => {
       const newBook = {
         title: 'Dune',
         author: 'Frank Herbert',
-        category: 'Fiction',
+        category_id: 1,
         price: 15,
         hardcover: false,
-        shipping: 'yes'
+        shipping: 'yes',
+
       };
       // define what is added to newBook from SQL
       const expectedBook = {
@@ -136,6 +143,11 @@ describe('app routes', () => {
         id: 6,
         owner_id: 1,
       };
+      // create const that includes expectedBook and also the removed category from newBook that is now gone because of the JOIN
+      const foundBook = {
+        ...expectedBook,
+        category: 'Fiction',
+      }
 
       // use POST endpoint to create a book
       const data = await fakeRequest(app)
@@ -157,8 +169,9 @@ describe('app routes', () => {
       // find newBook in book array
       const dune = allBooks.body.find(book => book.title === 'Dune');
 
-      // compare dune to newBook in database to see if they match
-      expect(dune).toEqual(expectedBook);
+      // 1. compare dune to newBook in database to see if they match
+      // 2. now pass in the updated foundBook for expectation
+      expect(dune).toEqual(foundBook);
     });
 
     // PUT
@@ -167,7 +180,7 @@ describe('app routes', () => {
       const newBook = {
         title: 'East of Eden',
         author: 'John Steinbeck',
-        category: 'Fiction',
+        category_id: 1,
         price: 18,
         hardcover: true,
         shipping: 'yes'
@@ -178,6 +191,12 @@ describe('app routes', () => {
         id: 1,
         owner_id: 1,
       };
+
+      // create const that includes expectedBook and also the removed category from newBook that is now gone because of the JOIN
+      const foundBook = {
+        ...expectedBook,
+        category: 'Fiction',
+      }
 
       await fakeRequest(app)
         .put('/books/1')
@@ -190,7 +209,8 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(updatedBook.body).toEqual(expectedBook);
+      // now pass in the updated foundBook for expectation
+      expect(updatedBook.body).toEqual(foundBook);
     });
 
     // DELETE
@@ -198,12 +218,12 @@ describe('app routes', () => {
 
       const expectation = {
         id: 4,
-        title: 'The Signal',
-        author: 'Ron Carlson',
-        category: 'Fiction',
+        title: "The Signal",
+        author: "Ron Carlson",
+        category_id: 1,
         price: 15,
         hardcover: false,
-        shipping: 'yes',
+        shipping: "yes",
         owner_id: 1
       };
 

@@ -18,12 +18,17 @@ async function run() {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
-                );           
+                );
+                
+                CREATE TABLE categories (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    type VARCHAR(512) NOT NULL
+                );
                 CREATE TABLE books (
                     id SERIAL PRIMARY KEY NOT NULL,
                     title VARCHAR(512) NOT NULL,
                     author VARCHAR(512) NOT NULL,
-                    category VARCHAR(512) NOT NULL,
+                    category_id INTEGER NOT NULL REFERENCES categories(id),
                     price INTEGER NOT NULL,
                     hardcover BOOLEAN NOT NULL,
                     shipping VARCHAR(512) NOT NULL,
